@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Personal speed reading app — paste any text and read at your own pace with RSVP technique">
+  <title>SpeedReader — By Azamatjon</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header__logo">
+        <div class="header__icon">⚡</div>
+        <h1 class="header__title">SpeedReader</h1>
+      </div>
+      <p class="header__subtitle">Paste. Read. Accelerate your mind.</p>
+    </header>
+
+    <!-- ═══════ INPUT VIEW ═══════ -->
+    <div id="input-view" class="view view--active">
+      <div class="input-panel">
+
+        <div class="textarea-wrapper">
+          <label class="textarea-wrapper__label" for="text-input">Paste your text</label>
+          <textarea id="text-input" class="textarea"
+            placeholder="Paste any article, book chapter, essay, or just random text here… There's no limit — paste as much as you want."
+            spellcheck="false"></textarea>
+          <span id="word-count" class="word-count">0 words</span>
+        </div>
+
+        <!-- Speed Setting -->
+        <div class="settings">
+          <div class="setting">
+            <label class="setting__label">Reading Speed</label>
+            <div class="wpm-control">
+              <span id="wpm-display" class="wpm-display">350</span>
+              <input id="wpm-slider" class="wpm-slider" type="range" min="50" max="1500" step="25" value="350">
+            </div>
+          </div>
+        </div>
+
+        <button id="start-btn" class="btn btn--primary" disabled>
+          ⚡ Start Reading
+        </button>
+
+      </div>
+    </div>
+
+    <!-- ═══════ READER VIEW ═══════ -->
+    <div id="reader-view" class="view">
+      <div class="reader">
+
+        <!-- Top Bar -->
+        <div class="reader__topbar">
+          <button id="back-btn" class="reader__back">← Back to text</button>
+          <div class="reader__stats">
+            <span><span id="stat-words">0</span> words</span>
+            <span id="stat-time"></span>
+          </div>
+        </div>
+
+        <!-- Word Display — Squirt-style structure -->
+        <div class="word-display">
+          <!-- Center focus line (the ORP always lands here) -->
+          <div class="focus-line"></div>
+          <div class="focus-line-top"></div>
+          <div class="focus-line-bottom"></div>
+
+          <!-- Word positioning area (same as Squirt's reader+word-container) -->
+          <div class="word-area">
+            <div id="word-container" class="word-container"></div>
+            <!-- Hidden pre-renderer for measuring ORP offsets -->
+            <div id="word-prerenderer" class="word-prerenderer"></div>
+          </div>
+
+          <!-- Finished state (hidden by default) -->
+          <div id="finished-container" class="finished" style="display:none"></div>
+
+          <span class="word-display__hint">Click or press Space to pause</span>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <div class="controls__group">
+            <button id="wpm-down-btn" class="controls__btn" title="Slower (-50 WPM)">−</button>
+            <span id="wpm-label" class="controls__wpm-label">350 WPM</span>
+            <button id="wpm-up-btn" class="controls__btn" title="Faster (+50 WPM)">+</button>
+          </div>
+
+          <div class="controls__group">
+            <button id="rewind-btn" class="controls__btn" title="Rewind (←)">⏪</button>
+            <button id="play-btn" class="controls__btn controls__btn--play" title="Play/Pause (Space)">▶</button>
+            <button id="fwd-btn" class="controls__btn" title="Forward (→)">⏩</button>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress">
+          <div class="progress__bar-wrapper">
+            <div id="progress-bar" class="progress__bar" style="width: 0%"></div>
+          </div>
+          <div class="progress__info">
+            <span><span id="progress-current">0</span> / <span id="progress-total">0</span></span>
+            <span id="progress-percent">0%</span>
+          </div>
+        </div>
+
+        <!-- Keyboard Shortcuts -->
+        <div class="shortcuts">
+          <div class="shortcuts__list">
+            <span class="shortcuts__item"><span class="shortcuts__key">Space</span> Play/Pause</span>
+            <span class="shortcuts__item"><span class="shortcuts__key">↑</span><span class="shortcuts__key">↓</span>
+              Speed</span>
+            <span class="shortcuts__item"><span class="shortcuts__key">←</span> Rewind</span>
+            <span class="shortcuts__item"><span class="shortcuts__key">→</span> Forward</span>
+            <span class="shortcuts__item"><span class="shortcuts__key">Esc</span> Back</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
